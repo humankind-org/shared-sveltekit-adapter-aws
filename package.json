@@ -3,12 +3,12 @@
   "description": "SvelteKit to deploy your project using AWS CDK.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MikeBild/sveltekit-adapter-aws.git"
+    "url": "git+https://github.com/humankind-org/shared-sveltekit-adapter-aws.git"
   },
   "bugs": {
-    "url": "https://github.com/MikeBild/sveltekit-adapter-aws/issues"
+    "url": "https://github.com/humankind-org/shared-sveltekit-adapter-aws/issues"
   },
-  "homepage": "https://github.com/MikeBild/sveltekit-adapter-aws#readme",
+  "homepage": "https://github.com/humankind-org/shared-sveltekit-adapter-aws#readme",
   "license": "MIT",
   "keywords": [
     "sveltekit",
@@ -27,7 +27,7 @@
     "build": "tsc",
     "watch": "tsc -w",
     "format": "prettier --write .",
-    "ca:login": "aws codeartifact login --tool npm --repository humankind-repository --domain humankind --domain-owner 750568800719 --namespace @humankind --duration-seconds 900 --profile npm --region us-east-1",
+    "ca:login": "aws codeartifact login --tool npm --repository humankind-repository --domain humankind --namespace @humankind --duration-seconds 900 --profile npm --region us-east-1",
     "ca:logout": "npm config set registry https://registry.npmjs.com/",
     "npm:publish": "npm run build && npm run ca:login && npm publish && npm run ca:logout"
   },

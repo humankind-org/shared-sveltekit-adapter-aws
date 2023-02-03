@@ -1,0 +1,23 @@
+name: Push to main
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  publish-to-code-artifact:
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - name: Create AWS profile
+        uses: Fooji/create-aws-profile-action@v1
+        with:
+          key: ${{ secrets.CODE_ARTIFACT_ACCESS_KEY_ID }}
+          secret: ${{ secrets.CODE_ARTIFACT_SECRET_ACCESS_KEY }}
+          profile: npm
+          region: us-east-1
+      - run: npm run ca:login
+      - run: npm install
+      - run: npm run npm:publish
