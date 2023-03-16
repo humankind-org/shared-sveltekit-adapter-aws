@@ -25,6 +25,8 @@ export interface AWSAdapterStackProps extends StackProps {
   account?: string;
   region?: string;
   serverHandlerPolicies?: PolicyStatement[];
+  DOMAIN_NAME?: string;
+  CF_CERTIFICATE_ARN?: string;
 }
 
 export class AWSAdapterStack extends Stack {
@@ -96,12 +98,12 @@ export class AWSAdapterStack extends Stack {
       enabled: true,
       defaultRootObject: '',
       sslSupportMethod: aws_cloudfront.SSLMethod.SNI,
-      domainNames: process.env.FQDN ? [process.env.FQDN!] : [],
-      certificate: process.env.FQDN
+      domainNames: props.DOMAIN_NAME ? [props.DOMAIN_NAME!] : [],
+      certificate: props.CF_CERTIFICATE_ARN
         ? aws_certificatemanager.Certificate.fromCertificateArn(
             this,
             'DomainCertificate',
-            this.certificate.certificateArn
+            props.CF_CERTIFICATE_ARN
           )
         : undefined,
       defaultBehavior: {
@@ -157,7 +159,7 @@ export class AWSAdapterStack extends Stack {
     });
 
     new CfnOutput(this, 'appUrl', {
-      value: process.env.FQDN ? `https://${process.env.FQDN}` : `https://${distribution.domainName}`,
+      value: props.DOMAIN_NAME ? `https://${props.DOMAIN_NAME}` : `https://${distribution.domainName}`,
     });
 
     new CfnOutput(this, 'stackName', { value: id });
