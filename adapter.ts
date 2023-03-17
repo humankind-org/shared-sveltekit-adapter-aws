@@ -13,6 +13,8 @@ export interface AWSAdapterProps {
   stackName?: string;
   esbuildOptions?: any;
   FQDN?: string;
+  DOMAIN_NAME?: string;
+  CF_CERTIFICATE_ARN?: string;
   LOG_RETENTION_DAYS?: number;
   MEMORY_SIZE?: number;
   env?: { [key: string]: string };
@@ -25,6 +27,8 @@ export function adapter({
   stackName = 'sveltekit-adapter-aws-webapp',
   esbuildOptions = {},
   FQDN,
+  DOMAIN_NAME,
+  CF_CERTIFICATE_ARN,
   LOG_RETENTION_DAYS,
   MEMORY_SIZE,
   env = {},
@@ -123,6 +127,8 @@ export function adapter({
                 ROUTES: routes,
                 STACKNAME: stackName,
                 FQDN,
+                DOMAIN_NAME,
+                CF_CERTIFICATE_ARN,
                 LOG_RETENTION_DAYS,
                 MEMORY_SIZE,
               },
