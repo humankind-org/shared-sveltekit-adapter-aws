@@ -98,12 +98,12 @@ export class AWSAdapterStack extends Stack {
       enabled: true,
       defaultRootObject: '',
       sslSupportMethod: aws_cloudfront.SSLMethod.SNI,
-      domainNames: props.DOMAIN_NAME ? [props.DOMAIN_NAME!] : [],
-      certificate: props.CF_CERTIFICATE_ARN
+      domainNames: process.env.DOMAIN_NAME ? [process.env.DOMAIN_NAME!] : [],
+      certificate: process.env.CF_CERTIFICATE_ARN
         ? aws_certificatemanager.Certificate.fromCertificateArn(
             this,
             'DomainCertificate',
-            props.CF_CERTIFICATE_ARN
+            process.env.CF_CERTIFICATE_ARN
           )
         : undefined,
       defaultBehavior: {
